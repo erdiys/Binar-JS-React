@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Navigation from "../components/navbar";
+import assets from "../assets";
 
 export default function Detail() {
   const params = useParams();
@@ -95,10 +96,16 @@ export default function Detail() {
               <div className="border border-3 rounded p-4">
                 <img src={data.image} alt={data.name} className="img-fluid" />
                 <h4>{data.name}</h4>
+                <div className="my-4">
+                <img src={assets.iconUsers} className="mx-2" />
                 <span>
                   {data.capacity - 2} - {data.capacity} orang
                 </span>
-                <h5>Total {data.price}</h5>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <h5>Total</h5>
+                  <h5>Rp {data.price.toLocaleString()}.-</h5>
+                </div>
               </div>
             </div>
             <div className="col-7 col-md-9">
@@ -106,28 +113,42 @@ export default function Detail() {
                 <h4 className="mb-5">Tentang Paket</h4>
                 <h5>Include</h5>
                 <ul>
-                    <li>Apa saja yang termasuk dalam paket misal durasi max 12 jam </li>
-                    <li>Sudah termasuk bensin selama 12 jam </li>
-                    <li>Sudah termasuk Tiket Wisata </li>
-                    <li>Sudah termasuk pajak</li>
+                  <li>
+                    Apa saja yang termasuk dalam paket misal durasi max 12 jam{" "}
+                  </li>
+                  <li>Sudah termasuk bensin selama 12 jam </li>
+                  <li>Sudah termasuk Tiket Wisata </li>
+                  <li>Sudah termasuk pajak</li>
                 </ul>
                 <h5>Exclude</h5>
                 <ul>
-                    <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
-                    <li>Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp 20.000/jam </li>
-                    <li>Tidak termasuk akomodasi penginapan</li>
+                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
+                  <li>
+                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
+                    20.000/jam{" "}
+                  </li>
+                  <li>Tidak termasuk akomodasi penginapan</li>
                 </ul>
                 <h5>Refund, Reschedule, Overtime</h5>
                 <ul>
-                    <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
-                    <li>Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp 20.000/jam </li>
-                    <li>Tidak termasuk akomodasi penginapan</li>
-                    <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
-                    <li>Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp 20.000/jam </li>
-                    <li>Tidak termasuk akomodasi penginapan</li>
-                    <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
-                    <li>Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp 20.000/jam </li>
-                    <li>Tidak termasuk akomodasi penginapan</li>
+                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
+                  <li>
+                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
+                    20.000/jam{" "}
+                  </li>
+                  <li>Tidak termasuk akomodasi penginapan</li>
+                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
+                  <li>
+                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
+                    20.000/jam{" "}
+                  </li>
+                  <li>Tidak termasuk akomodasi penginapan</li>
+                  <li>Tidak termasuk biaya makan sopir Rp 75.000/hari </li>
+                  <li>
+                    Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp
+                    20.000/jam{" "}
+                  </li>
+                  <li>Tidak termasuk akomodasi penginapan</li>
                 </ul>
               </div>
             </div>
