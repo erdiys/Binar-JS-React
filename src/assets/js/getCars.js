@@ -14,6 +14,10 @@ const populateCars = (cars) => {
     );
     const typeDriver = isPositive ? "Lepas Kunci" : "Dengan Supir";
     const capacity = getRandomInt(2, 8);
+    if (car.name == "Innova") {
+      car.image =
+        "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/4674690068575/6-Hours-INNOVA-REBORN-Car-Rental-Includes-Driver-32dfefb9-a283-44a5-a429-f7c7d62b4d44.png?tr=q-60,c-at_max,w-1280,h-720&_src=imagekit";
+    }
     return {
       ...car,
       capacity,
@@ -23,7 +27,7 @@ const populateCars = (cars) => {
   });
 };
 
-const listCars = async (filterer) => {
+const listCars = async (inputData) => {
   let cars;
   let cachedCarsString = localStorage.getItem("CARS");
 
@@ -40,9 +44,15 @@ const listCars = async (filterer) => {
     localStorage.setItem("CARS", JSON.stringify(cars));
   }
 
-  if (filterer instanceof Function) return cars.filter(filterer);
-
-  return cars;
+  const filteredCars = cars.filter((el) => {
+    return inputData.capacity
+      ? el.capacity >= inputData.capacity
+      : true &&
+          el.typeDriver === inputData.typeDriver &&
+          el.availableAt >= new Date(inputData.tanggal) &&
+          el.availableAt.getHours() >= Number(inputData.waktu);
+  });
+  return filteredCars;
 };
 
 export { listCars };

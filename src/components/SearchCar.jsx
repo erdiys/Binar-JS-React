@@ -4,7 +4,7 @@ import { listCars } from "../assets/js/getCars";
 import assets from "../assets";
 
 export default function SearchCar() {
-  const [cars, setCars] = useState(null);
+  const [cars, setCars] = useState('');
   const [inputData, setInputData] = useState({
     typeDriver: "",
     tanggal: "",
@@ -31,16 +31,17 @@ export default function SearchCar() {
       return alert("Mohon dipilih Tipe Driver, Tanggal dan waktu jemput");
     }
 
-    const data = await listCars((el) => {
-      return inputData.capacity
-        ? el.capacity >= inputData.capacity
-        : true &&
-            el.typeDriver === inputData.typeDriver &&
-            el.availableAt >= new Date(inputData.tanggal) &&
-            el.availableAt.getHours() >= Number(inputData.waktu);
-    });
+    const data = await listCars(inputData);
 
-    setCars(data);
+    if (data === undefined) {
+      console.log("data undefined")
+      setCars(null)
+    } else if (data.length === 0) {
+      console.log("data empty")
+      setCars([])
+    } else {
+      setCars(data);
+    }
   };
 
   return (
@@ -127,8 +128,9 @@ export default function SearchCar() {
       <section id="result">
         <div className="container mt-5 pt-5">
           <div className="row row-gap-4" id="searchresult">
-            {cars
-              ? cars.map((e, index) => (
+            {cars !== null ? (
+              cars.length !== 0 ? (
+                cars.map((e, index) => (
                   <div className="col-12 col-md-4 mb-4" key={index}>
                     <div className="card pb-2">
                       <img
@@ -138,14 +140,14 @@ export default function SearchCar() {
                       />
                       <div className="card-body">
                         <h6>{e.name}</h6>
-                        <label>{e.price}</label>
+                        <label>Rp {e.price.toLocaleString()}.-</label>
                         <p>
                           Lorem ipsum dolor sit amet consectetur adipisicing
                           elit. Tempora, accusamus!
                         </p>
                         <ul>
                           <li>
-                            <img src={assets.iconUsers} className="mx-2"/>
+                            <img src={assets.iconUsers} className="mx-2" />
                             <span>{e.capacity} Orang</span>
                           </li>
                           <li>
@@ -167,11 +169,16 @@ export default function SearchCar() {
                     </div>
                   </div>
                 ))
-              : cars !== null && (
-                  <p className="text-center">
-                    Hasil Tidak Ditemukan, Silahkan Melakukan Pencarian Ulang!
-                  </p>
-                )}
+              ) : (
+                <p className="text-center">
+                  Hasil Tidak Ditemukan, Silahkan Melakukan Pencarian Ulang!
+                </p>
+              )
+            ) : (
+              <p className="text-center">
+                Mesin pencari sedang mengalami kendala!
+              </p>
+            )}
           </div>
         </div>
       </section>
